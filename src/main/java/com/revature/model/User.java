@@ -2,7 +2,7 @@ package com.revature.model;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
 
 	private static final long serialVersionUID = -4553508689874995351L;
 	private int userId;
@@ -11,14 +11,24 @@ public class User implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String email;
-	private int roleId;
+	private Role role;
 	
 	public User() {
 		super();
 	}
 
+	public User(String userName, String password, String firstName, String lastName, String email, Role role) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.role = role;
+	}
+
 	public User(int userId, String userName, String password, String firstName, String lastName, String email,
-			int roleId) {
+			Role role) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -26,7 +36,7 @@ public class User implements Serializable{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.roleId = roleId;
+		this.role = role;
 	}
 
 	public int getUserId() {
@@ -77,12 +87,12 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override
@@ -93,7 +103,7 @@ public class User implements Serializable{
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + roleId;
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + userId;
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
@@ -128,7 +138,10 @@ public class User implements Serializable{
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (roleId != other.roleId)
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
 			return false;
 		if (userId != other.userId)
 			return false;
@@ -143,6 +156,6 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + ", roleId=" + roleId + "]";
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
 	}	
 }

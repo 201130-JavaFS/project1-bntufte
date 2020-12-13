@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 
-public class Reimbursement implements Serializable{
+public class Reimbursement implements Serializable {
 
 	private static final long serialVersionUID = 2399083438878127163L;
 	private int id;
@@ -13,17 +13,31 @@ public class Reimbursement implements Serializable{
 	private Date resolved;
 	private String description;
 	private Blob receipt;
-	private int author;
-	private int resolver;
-	private int statusId;
-	private int typeId;
+	private User author;
+	private User resolver;
+	private Status status;
+	private Type type;
 	
 	public Reimbursement() {
 		super();
 	}
 
+	public Reimbursement(double amount, Date submitted, Date resolved, String description, Blob receipt, User author,
+			User resolver, Status status, Type type) {
+		super();
+		this.amount = amount;
+		this.submitted = submitted;
+		this.resolved = resolved;
+		this.description = description;
+		this.receipt = receipt;
+		this.author = author;
+		this.resolver = resolver;
+		this.status = status;
+		this.type = type;
+	}
+
 	public Reimbursement(int id, double amount, Date submitted, Date resolved, String description, Blob receipt,
-			int author, int resolver, int statusId, int typeId) {
+			User author, User resolver, Status status, Type type) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -33,8 +47,8 @@ public class Reimbursement implements Serializable{
 		this.receipt = receipt;
 		this.author = author;
 		this.resolver = resolver;
-		this.statusId = statusId;
-		this.typeId = typeId;
+		this.status = status;
+		this.type = type;
 	}
 
 	public int getId() {
@@ -85,36 +99,36 @@ public class Reimbursement implements Serializable{
 		this.receipt = receipt;
 	}
 
-	public int getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(int author) {
+	public void setAuthor(User author) {
 		this.author = author;
 	}
 
-	public int getResolver() {
+	public User getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(int resolver) {
+	public void setResolver(User resolver) {
 		this.resolver = resolver;
 	}
 
-	public int getStatusId() {
-		return statusId;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
-	public int getTypeId() {
-		return typeId;
+	public Type getType() {
+		return type;
 	}
 
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	@Override
@@ -124,15 +138,15 @@ public class Reimbursement implements Serializable{
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + author;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((receipt == null) ? 0 : receipt.hashCode());
 		result = prime * result + ((resolved == null) ? 0 : resolved.hashCode());
-		result = prime * result + resolver;
-		result = prime * result + statusId;
+		result = prime * result + ((resolver == null) ? 0 : resolver.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((submitted == null) ? 0 : submitted.hashCode());
-		result = prime * result + typeId;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -147,7 +161,10 @@ public class Reimbursement implements Serializable{
 		Reimbursement other = (Reimbursement) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (author != other.author)
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -166,16 +183,25 @@ public class Reimbursement implements Serializable{
 				return false;
 		} else if (!resolved.equals(other.resolved))
 			return false;
-		if (resolver != other.resolver)
+		if (resolver == null) {
+			if (other.resolver != null)
+				return false;
+		} else if (!resolver.equals(other.resolver))
 			return false;
-		if (statusId != other.statusId)
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
 			return false;
 		if (submitted == null) {
 			if (other.submitted != null)
 				return false;
 		} else if (!submitted.equals(other.submitted))
 			return false;
-		if (typeId != other.typeId)
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
 			return false;
 		return true;
 	}
@@ -184,6 +210,6 @@ public class Reimbursement implements Serializable{
 	public String toString() {
 		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
 				+ ", description=" + description + ", receipt=" + receipt + ", author=" + author + ", resolver="
-				+ resolver + ", statusId=" + statusId + ", typeId=" + typeId + "]";
-	}	
+				+ resolver + ", status=" + status + ", type=" + type + "]";
+	}
 }

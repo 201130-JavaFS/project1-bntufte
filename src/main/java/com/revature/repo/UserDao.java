@@ -1,5 +1,10 @@
 package com.revature.repo;
 
-public interface UserDao {
+import java.util.List;
+import com.revature.model.User;
 
+public interface UserDao {
+	
+	public List<User> getUsers();
+	public User getUserById(int id);
 }
