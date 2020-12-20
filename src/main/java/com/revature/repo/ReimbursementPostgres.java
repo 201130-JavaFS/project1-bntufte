@@ -72,7 +72,6 @@ public class ReimbursementPostgres implements ReimbursementDao{
 				User author = new User(rs.getInt("author_id"), rs.getString("author_un"), rs.getString("author_pw"),
 						rs.getString("author_fn"), rs.getString("author_ln"), rs.getString("author_em"),
 						new Role(rs.getInt("author_ri"), rs.getString("author_rn")));
-//				if(rs.getInt("author_id") != null)
 				User resolver = new User(rs.getInt("resolver_id"), rs.getString("resolver_un"), rs.getString("resolver_pw"),
 						rs.getString("resolver_fn"), rs.getString("resolver_ln"), rs.getString("resolver_em"),
 						new Role(rs.getInt("resolver_ri"), rs.getString("resolver_rn")));
