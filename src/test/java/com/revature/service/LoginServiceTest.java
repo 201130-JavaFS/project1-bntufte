@@ -1,6 +1,6 @@
 package com.revature.service;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +12,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
+import com.revature.model.Role;
+import com.revature.model.User;
 import com.revature.utility.ConnectionUtility;
 
 public class LoginServiceTest {
@@ -31,7 +33,7 @@ public class LoginServiceTest {
 	
 	@Test
 	public void loginTest() {
-		assertTrue(ls.login("agent", "cellist"));
+		assertEquals(new User(1, "bntufte", "OX3GWvzzdGdnRXz9nUbk0w==:rh3n2J6dcdKo12NMOlcwKA==", "Brandon", "Tufte", "btufte@economist.com", new Role(1, "FINANCE M")), ls.login("bntufte", "password"));
 	}
 	
 	@AfterClass

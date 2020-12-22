@@ -5,7 +5,7 @@
 			<PatternLayout
 				pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-		<File name="File" fileName="C:/Users/bntuf/Desktop/11302020RevatureTraining/project1-bntufte/target/debug.log">
+		<File name="File" fileName="/target/debug.log">
 			<PatternLayout
 				pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
 		</File>

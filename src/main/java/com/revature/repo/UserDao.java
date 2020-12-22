@@ -7,4 +7,5 @@ public interface UserDao {
 	
 	public List<User> getUsers();
 	public User getUserById(int id);
+	public boolean updateUser(User u);
 }

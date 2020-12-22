@@ -1,8 +1,31 @@
-#login {
+#login {    
     border-style: solid;
-    border-width: 10px;
-    border-color: black;
+    border-width: 2px;
+    border-color: orange;
+    background-color:rgb(252, 217, 153);
     /* width: 60%; */
+    margin: auto;
     margin-top: 40%;
+    content: center;
+    width: 60%;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
+#table-row {
+    margin: auto;
+    margin-top: 5%;
+    content: center;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#banner {
+    background-color: orange;
+    color: white;
+}
+
+.topbtn {
+    float: right;
+}

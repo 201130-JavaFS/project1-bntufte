@@ -16,9 +16,9 @@ public class UserPostgres implements UserDao{
 	@Override
 	public List<User> getUsers() {
 		try (Connection conn = ConnectionUtility.getConnection()) {
-			String sql = "select u.ers_users_id, u.ers_username, u.ers_password, u.user_first_name, u.user_last_name, u.user_email,\r\n"
-					+ "ur.user_role_id, ur.user_role \r\n"
-					+ "from ers.users as u\r\n"
+			String sql = "select u.ers_users_id, u.ers_username, u.ers_password, u.user_first_name, u.user_last_name, u.user_email, "
+					+ "ur.user_role_id, ur.user_role "
+					+ "from ers.users as u "
 					+ "left join ers.user_roles as ur on u.user_role_id = ur.user_role_id;";
 			List<User> users = new ArrayList<>();
 			Statement statement = conn.createStatement();			
@@ -71,5 +71,26 @@ public class UserPostgres implements UserDao{
 		}		
 		return null;
 	}
-
+	
+	@Override
+	public boolean updateUser(User u) {		
+		try (Connection conn = ConnectionUtility.getConnection()) {
+			String sql = "update ers.users set ers_username = ?, ers_password = ? , "
+					+ "user_first_name = ?, user_last_name = ?, user_email = ?, user_role_id = ? "
+					+ "where ers_users_id = ?";
+			PreparedStatement pstate = conn.prepareStatement(sql);
+			pstate.setString(1, u.getUserName());
+			pstate.setString(2, u.getPassword());
+			pstate.setString(3, u.getFirstName());
+			pstate.setString(4, u.getLastName());
+			pstate.setString(5, u.getEmail());
+			pstate.setInt(6, u.getRole().getRoleId());
+			pstate.setInt(7, u.getUserId());				
+			if(pstate.executeUpdate() == 1)
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return false;
+	}
 }

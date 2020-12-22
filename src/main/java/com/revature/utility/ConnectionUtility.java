@@ -13,6 +13,11 @@ public class ConnectionUtility {
 		if (isTest) {			
 			return getH2Connection();			
 		} else {
+			try {
+				Class.forName("org.postgresql.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 			String url = System.getenv("JDBC_DB_HOST2");
 			String username = System.getenv("JDBC_DB_USER");
 			String password = System.getenv("JDBC_DB_PASS");
@@ -26,7 +31,7 @@ public class ConnectionUtility {
 	}
 
 	public static Connection getH2Connection() {
-		try {
+		try {			
 			if (connection == null || connection.isClosed()) {
 				connection = DriverManager.getConnection("jdbc:h2:~/test");
 			}
@@ -36,4 +41,16 @@ public class ConnectionUtility {
 
 		return connection;
 	}
+	
+//	public static void main(String[] args) {
+//		
+//		//Try with resources block. The try statement will stake a method that creates a resource, that will
+//		//automatically be closed at the end of the try or catch block. It avoids the need for a finally block.
+//		try(Connection conn = ConnectionUtility.getConnection()){
+//			System.out.println("connection successful");
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
 }
