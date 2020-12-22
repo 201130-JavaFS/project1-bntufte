@@ -109,7 +109,7 @@ async function processPendings() {
     let content2 = document.createElement('div');
     content2.setAttribute("class", "text-center");
     content2.setAttribute("id", "login");
-    content2.innerHTML = "<h4 id='prompt'>Enter Reimbursement Details</h4> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='amount' type='text' placeholder='AMOUNT'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='desc' type='text' placeholder='DESCRIPTION'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='type' type='text' placeholder='TYPE'> </div> <button id='enterbtn' class='btn btn-warning'>Enter</button>";
+    content2.innerHTML = "<h4 id='prompt'>Approve Pending Reimbursements</h4> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='amount' type='text' placeholder='AMOUNT'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='desc' type='text' placeholder='DESCRIPTION'> </div> <button id='enterbtn' class='btn btn-warning'>Enter</button>";
     document.getElementById("fullcontainer").appendChild(content2);    
     document.getElementById("enterbtn").addEventListener('click', ticketSubmitFunc);
 };
