@@ -86,14 +86,34 @@ async function managerDisplay() {
         content.setAttribute("id", "addticketbtn");
         content.innerText = "New Reimbursement";
         document.getElementById("banner").appendChild(content);
-        document.getElementById("addticketbtn").addEventListener('click', addReimb());
+        document.getElementById("addticketbtn").addEventListener('click', addReimb);
         let content2 = document.createElement('button2');
         content2.setAttribute("class", "btn btn-warning topbtn");
         content2.setAttribute("id", "pendingReimb");
         content2.innerText = "Pending Reimbursements";
         document.getElementById("banner").appendChild(content2);
+        document.getElementById("pendingReimb").addEventListener('click', processPendings);
     }
 };
+
+async function processPendings() {
+    document.getElementById("banner").innerHTML = "";
+    document.getElementById("banner").innerHTML = "<h1>Revature Expense Reimbursment System</h1>";
+    let content = document.createElement('button');
+    content.setAttribute("class", "btn btn-warning topbtn");
+    content.setAttribute("id", "logoutbtn");
+    content.innerText = "LogOut";
+    document.getElementById("banner").appendChild(content);
+    document.getElementById("logoutbtn").addEventListener('click', logOutFunc);
+    document.getElementById("fullcontainer").innerText="";      
+    let content2 = document.createElement('div');
+    content2.setAttribute("class", "text-center");
+    content2.setAttribute("id", "login");
+    content2.innerHTML = "<h4 id='prompt'>Enter Reimbursement Details</h4> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='amount' type='text' placeholder='AMOUNT'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='desc' type='text' placeholder='DESCRIPTION'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='type' type='text' placeholder='TYPE'> </div> <button id='enterbtn' class='btn btn-warning'>Enter</button>";
+    document.getElementById("fullcontainer").appendChild(content2);    
+    document.getElementById("enterbtn").addEventListener('click', ticketSubmitFunc);
+};
+
 
 async function employeeDisplay() {
     generalDisplay();
@@ -166,7 +186,36 @@ async function addReimb(){
     content2.innerHTML = "<h4 id='prompt'>Enter Reimbursement Details</h4> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='amount' type='text' placeholder='AMOUNT'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='desc' type='text' placeholder='DESCRIPTION'> </div> <div class='row d-flex justify-content-center'> <input class='col-sm-2 form-control' id='type' type='text' placeholder='TYPE'> </div> <button id='enterbtn' class='btn btn-warning'>Enter</button>";
     document.getElementById("fullcontainer").appendChild(content2);    
     document.getElementById("enterbtn").addEventListener('click', ticketSubmitFunc);
+  
 };
+
+async function ticketSubmitFunc() {
+    let am = document.getElementById("amount").value;
+    let desc = document.getElementById("desc").value;
+    let ty = document.getElementById("type").value;
+    let ticket = {amount:am, description:desc, type:ty};
+    let resp = await fetch(url+'ticketSub', {method:"POST", body:JSON.stringify(ticket), credentials:'include'});
+    if(resp.status===200){
+        let user = await resp.json();
+        if(user.role.roleId === 1) {
+            managerDisplay();
+        }
+        else if(user.role.roleId === 2) {
+            employeeDisplay();
+        }
+    }else{
+        logInErrorFunc();
+        
+    }
+    document.getElementById("banner").innerHTML = "";
+    document.getElementById("banner").innerHTML = "<h1>Revature Expense Reimbursment System</h1>";
+    let content = document.createElement('button');
+    content.setAttribute("class", "btn btn-warning topbtn");
+    content.setAttribute("id", "logoutbtn");
+    content.innerText = "LogOut";
+    document.getElementById("banner").appendChild(content);
+    document.getElementById("logoutbtn").addEventListener('click', logOutFunc);
+}
 
 async function logInErrorFunc() {
         document.getElementById("banner").innerHTML = "";

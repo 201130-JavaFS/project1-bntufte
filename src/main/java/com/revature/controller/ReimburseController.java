@@ -2,7 +2,6 @@ package com.revature.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.model.LoginDTO;
 import com.revature.model.ReimbDTO;
 import com.revature.model.Reimbursement;
+import com.revature.model.Status;
 import com.revature.model.Type;
 import com.revature.model.User;
 import com.revature.service.LoginService;
@@ -69,12 +69,8 @@ public class ReimburseController {
 			HttpSession ses = req.getSession(false);
 			LoginDTO lDto = (LoginDTO) ses.getAttribute("user");
 			User u = ls.login(lDto.username, lDto.password);
-			Date d = null;
-			Blob b = null;
-			User u2 = null;
-			String t = rDto.type;
-			Type t2 = null;
-			Reimbursement r = new Reimbursement(rDto.amount, d, d, rDto.description, b, u, u2, null, t2);
+			Date d = null;			
+			Reimbursement r = new Reimbursement(rDto.amount, d, d, rDto.description, null, u, u, new Status(1, "Pending"), new Type(1, "food"));
 			if(u != null) {
 				rs.sendReimburse(r);
 				res.setStatus(200);
