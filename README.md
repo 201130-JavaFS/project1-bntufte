@@ -30,7 +30,7 @@ The Expense Reimbursement System (ERS) will manage the process of reimbursing em
 * Host on EC2 S3 and RDS
 
 ## Getting Started
-* git clone https://github.com/bntufte/sw_back.git
+* git clone https://github.com/201130-JavaFS/project1-bntufte
 * git pull
 * Open the project in Spring Tool Suite 4 or equivalent. Perform a Maven Update Project to acquire all the necessary dependencies
 * Change the database url in applicationContext.xml along with the username and password values
